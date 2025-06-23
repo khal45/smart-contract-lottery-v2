@@ -27,7 +27,7 @@ contract RaffleTest is Test, CodeConstants {
 
     function setUp() external {
         DeployRaffle deployer = new DeployRaffle();
-        (raffleContract, helperConfig) = deployer.deployContract();
+        (raffleContract, helperConfig, subscriptionId) = deployer.deployContract();
         HelperConfig.NetworkConfig memory config = helperConfig.getConfig();
         vm.deal(PLAYER, STARTING_PLAYER_BALANCE);
 
@@ -36,7 +36,6 @@ contract RaffleTest is Test, CodeConstants {
         vrfCoordinator = config.vrfCoordinator;
         gasLane = config.gasLane;
         callbackGasLimit = config.callbackGasLimit;
-        subscriptionId = config.subscriptionId;
     }
 
     modifier raffleEntered() {
@@ -57,6 +56,10 @@ contract RaffleTest is Test, CodeConstants {
 
     function testIntervalIsEqualToConfigInterval() public view {
         assertEq(raffleContract.getInterval(), interval);
+    }
+
+    function testSubscriptionIdIsConfigSubscriptionId() public view {
+        assertEq(raffleContract.getSubscriptionId(), subscriptionId);
     }
 
     function testVrfCoordinatorIsEqualToCOnfigVrfCoordinator() public view {

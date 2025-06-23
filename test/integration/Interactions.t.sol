@@ -25,7 +25,7 @@ contract InteractionsTest is Test, CodeConstants {
 
     function setUp() external {
         DeployRaffle deployer = new DeployRaffle();
-        (raffleContract, helperConfig) = deployer.deployContract();
+        (raffleContract, helperConfig, subscriptionId) = deployer.deployContract();
         HelperConfig.NetworkConfig memory config = helperConfig.getConfig();
 
         entranceFee = config.entranceFee;
@@ -33,7 +33,7 @@ contract InteractionsTest is Test, CodeConstants {
         vrfCoordinator = config.vrfCoordinator;
         gasLane = config.gasLane;
         callbackGasLimit = config.callbackGasLimit;
-        subscriptionId = config.subscriptionId;
+        // subscriptionId = config.subscriptionId;
     }
 
     modifier skipFork() {

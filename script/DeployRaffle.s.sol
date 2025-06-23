@@ -11,7 +11,7 @@ contract DeployRaffle is Script {
         deployContract();
     }
 
-    function deployContract() public returns (Raffle, HelperConfig) {
+    function deployContract() public returns (Raffle, HelperConfig, uint256) {
         HelperConfig helperConfig = new HelperConfig();
         // local -> deploy mocks, get local config
         // sepolia -> get sepolia config
@@ -42,6 +42,6 @@ contract DeployRaffle is Script {
         AddConsumer addConsumer = new AddConsumer();
         addConsumer.addConsumer(address(raffle), config.vrfCoordinator, config.subscriptionId, config.account);
 
-        return (raffle, helperConfig);
+        return (raffle, helperConfig, config.subscriptionId);
     }
 }
